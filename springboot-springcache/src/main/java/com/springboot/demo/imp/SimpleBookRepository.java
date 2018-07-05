@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class SimpleBookRepository implements BookRepository {
 
     @Override
-    @Cacheable("books") //在需要缓存的地方加入@Cacheable注解 ,这个方法就开启了缓存策略，当缓存有这个数据的时候，会直接返回数据，不会等待去查询数据库。
+    @Cacheable(value = "books",key = "'get'+#isbn") //在需要缓存的地方加入@Cacheable注解 ,这个方法就开启了缓存策略，当缓存有这个数据的时候，会直接返回数据，不会等待去查询数据库。
     public Book getByIsbn(String isbn) {
         simulateSlowService();
         return new Book(isbn, "Some book");
